@@ -4,7 +4,7 @@ parse_crates = fn crates ->
     |> Enum.reverse
   count = String.to_integer(List.last(String.split(num_lines)))
 
-  crates = for n <- 1..count do
+  crates = for n <- 1..count, into: %{} do
     {n, Enum.reverse(
       for line <- crate_lines,
         char = String.at(line, (n-1)*4 + 1),
@@ -13,7 +13,7 @@ parse_crates = fn crates ->
     )}
   end
 
-  {count, Map.new(crates)}
+  {count, crates}
 end
 
 parse_moves = fn moves ->
@@ -27,7 +27,7 @@ parse_moves = fn moves ->
   end)
 end
 
-make_move = fn crates, {count, from, to} ->
+make_move = fn {count, from, to}, crates ->
   {boxes, new_from} = Enum.split(crates[from], count)
   new_to = boxes ++ crates[to]
   %{ crates | from => new_from, to => new_to }
@@ -39,8 +39,6 @@ end
 
 moves = parse_moves.(moves)
 
-new_crates = Enum.reduce(moves, crates, fn move, crates ->
-  make_move.(crates, move)
-end)
+new_crates = Enum.reduce(moves, crates, make_move)
 
 IO.puts(Enum.join((for n <- 1..count, do: hd(new_crates[n]))))

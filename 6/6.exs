@@ -6,4 +6,4 @@ File.read!("input.txt")
 |> Stream.with_index(4)
 |> Enum.find(&(elem(&1, 0) == 4))
 |> elem(1)
-|> IO.puts
+|> IO.puts()

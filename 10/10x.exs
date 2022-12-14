@@ -8,14 +8,16 @@ File.stream!("input.txt")
 end)
 |> Stream.scan(1, &(&1 + &2))
 |> then(fn stream -> Stream.concat([1], stream) end)
-|> Stream.with_index(1) # signal on the start of the cycle
+# signal on the start of the cycle
+|> Stream.with_index(1)
 |> Enum.each(fn {x, idx} ->
-  if abs(rem(idx-1, 40) - x) <= 1 do
-    IO.write "*"
+  if abs(rem(idx - 1, 40) - x) <= 1 do
+    IO.write("*")
   else
-    IO.write " "
+    IO.write(" ")
   end
-  if rem(idx-1, 40) == 39 do
-    IO.write "\n"
+
+  if rem(idx - 1, 40) == 39 do
+    IO.write("\n")
   end
 end)

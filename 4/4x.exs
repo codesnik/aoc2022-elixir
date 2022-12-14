@@ -3,7 +3,7 @@ File.stream!("input.txt")
   String.split(line, ["-", ",", "\n"], trim: true)
   |> Enum.map(&String.to_integer/1)
 end)
-|> Enum.count(fn [a,b,c,d] ->
+|> Enum.count(fn [a, b, c, d] ->
   !Range.disjoint?(a..b, c..d)
 end)
-|> IO.puts
+|> IO.puts()

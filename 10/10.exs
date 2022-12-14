@@ -7,9 +7,10 @@ File.stream!("input.txt")
   ["addx", amount] -> [0, String.to_integer(amount)]
 end)
 |> Stream.scan(1, &(&1 + &2))
-|> Stream.with_index(2) # signal on the start of the cycle
+# signal on the start of the cycle
+|> Stream.with_index(2)
 |> then(fn stream ->
   for {x, step} <- stream, step in 20..220//40, do: x * step
 end)
-|> Enum.sum
-|> IO.puts
+|> Enum.sum()
+|> IO.puts()

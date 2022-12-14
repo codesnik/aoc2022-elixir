@@ -22,9 +22,12 @@ defmodule Cave do
     cond do
       next ->
         drop(next, maxy, cave)
+
       y > 0 ->
         {x, y}
-      true -> nil
+
+      true ->
+        nil
     end
   end
 
@@ -40,7 +43,7 @@ defmodule Cave do
       updated_cave = Map.put(cave, boulder, ?*)
       count_drops(updated_cave, maxy, count + 1)
     else
-      {cave, count+1}
+      {cave, count + 1}
     end
   end
 end
@@ -65,6 +68,6 @@ end)
 end)
 |> then(&Cave.count_drops/1)
 |> then(fn {_cave, count} ->
-  #Cave.display_cave(cave)
+  # Cave.display_cave(cave)
   IO.puts(count)
 end)

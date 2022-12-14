@@ -3,8 +3,8 @@ defmodule AOC2x do
     File.stream!("input.txt")
     |> Stream.map(&String.split/1)
     |> Stream.map(fn [his, mine] -> shape_score(his, mine) + game_score(mine) end)
-    |> Enum.sum
-    |> IO.puts
+    |> Enum.sum()
+    |> IO.puts()
   end
 
   def game_score("X"), do: 0
@@ -20,11 +20,12 @@ defmodule AOC2x do
   def prev("C"), do: "B"
 
   def shape_score(piece, move) do
-    your_shape = case move do
-      "X" -> prev(piece)
-      "Y" -> piece
-      "Z" -> succ(piece)
-    end
+    your_shape =
+      case move do
+        "X" -> prev(piece)
+        "Y" -> piece
+        "Z" -> succ(piece)
+      end
 
     case your_shape do
       "A" -> 1
@@ -34,4 +35,4 @@ defmodule AOC2x do
   end
 end
 
-AOC2x.run
+AOC2x.run()

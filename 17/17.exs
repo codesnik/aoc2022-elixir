@@ -52,19 +52,25 @@ defmodule Tetris do
   end
 
   def display_board(board, figure) do
-    max_y = Stream.concat(figure, board) |> Stream.map(&elem(&1, 1)) |> Enum.max
+    max_y = Stream.concat(figure, board) |> Stream.map(&elem(&1, 1)) |> Enum.max()
     figureset = MapSet.new(figure)
+
     for y <- max_y..0 do
-      IO.write Integer.to_string(y) |> String.pad_leading(3) |> String.pad_trailing(4)
-      IO.write(for x <- @left_border..@right_border do
-        cond do
-          MapSet.member?(board, {x, y}) -> ?#
-          MapSet.member?(figureset, {x, y}) -> ?@
-          true -> ?.
+      IO.write(Integer.to_string(y) |> String.pad_leading(3) |> String.pad_trailing(4))
+
+      IO.write(
+        for x <- @left_border..@right_border do
+          cond do
+            MapSet.member?(board, {x, y}) -> ?#
+            MapSet.member?(figureset, {x, y}) -> ?@
+            true -> ?.
+          end
         end
-      end)
+      )
+
       IO.puts("")
     end
+
     IO.puts("")
   end
 end
